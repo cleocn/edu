@@ -5,7 +5,7 @@ module.exports = app => {
    async index() {
         const { ctx, service } = this;
 
-      this.ctx.render('index.html');
+      await this.ctx.render('index.html');
     }
   }
   return HomeController;

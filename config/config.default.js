@@ -17,6 +17,14 @@ module.exports = appInfo => {
             enable: false,
         },
     };
+
+    config.view={
+
+        mapping: {
+            '.tpl': 'nunjucks',
+        },
+        defaultViewEngine: 'nunjucks',
+    };
   return config;
 };
 

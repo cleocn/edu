@@ -1,7 +1,9 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
+var ObjectID = require('mongodb').ObjectID;
 
-
+// mongodb关于对表的操作参见文档：
+//http://mongodb.github.io/node-mongodb-native/2.2/api/Collection.html
 module.exports = app => {
     class UserService extends app.Service {
         // 1. 小程序发来的code请求wxapi换取openid和session_key；
@@ -33,11 +35,11 @@ module.exports = app => {
                 [["openid", 1]],
                 {
                     $set: update,
-                    $inc: {loginCount:1}
+                    $inc: {loginCount:1}//increment 增加 1
                 },
                 {
-                    new: true,
-                    upsert: true
+                    new: true,   //返回更新后的记录
+                    upsert: true //没有则插入
                 }
             );
 
@@ -47,36 +49,39 @@ module.exports = app => {
             return rtn;
         }
 
-        async index(where) {
+
+        async findAll() {
             // Connection URL
-            var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+            var db = await MongoClient.connect(app.config.dbStr);
             console.log("连接数据库成功");
             /// Get the collection
             var col = db.collection('user');
             //
-            var docs = await col.find(where).toArray();
+            var docs = await col.find().toArray();
             return docs;
         }
 
-        async show(where) {
+        async findById(id) {
             // Connection URL
-            var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+            var db = await MongoClient.connect(app.config.dbStr);
             console.log("连接数据库成功");
-            /// Get the collection
+            // Get the collection
             var col = db.collection('user');
-            //
-            var docs = await col.find(where).toArray();
+            var docs = await col.find({"_id":ObjectID(id.id)}).toArray();
             return docs;
         }
 
-        async update() {
+        async updateById(id,document) {
             // Connection URL
-            var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+            var db = await MongoClient.connect(app.config.dbStr);
             console.log("连接数据库成功");
             /// Get the collection
             var col = db.collection('user');
-            //
-            var docs = await col.find(where).toArray();
+
+
+            var docs = await col.update({"_id":ObjectID(id.id)},
+                {$set:document}, //不能直接用document，否则会将整条记录覆盖为document，使用set操作符，只更新set的字段，没有该字段则创建。
+                {upsert:true}); // 没有则插入
             return docs;
         }
     }

@@ -11,7 +11,12 @@ module.exports = appInfo => {
   config.dbStr = 'mongodb://isoft-info.com:27017/edu-dev'
   // add your config here
   config.middleware = [];
-
+  //暂时关闭csrf安全防范
+    config.security = {
+        csrf: {
+            enable: false,
+        },
+    };
   return config;
 };
 

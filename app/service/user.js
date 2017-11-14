@@ -27,15 +27,22 @@ module.exports = app => {
             // Get first the documents that match the query
             var where = {};
             where.openid = result.data.openid;
+            parm.firstLoginTime = new Date();
+            parm.lastLoginTime = new Date();
+
             var update = parm;
                 update.openid = result.data.openid;
                 update.session_key = result.data.session_key;
+                update.lastLoginTime = new Date();
             var rtn = await col.findAndModify(
                 {openid: where.openid},
                 [["openid", 1]],
                 {
                     $set: update,
-                    $inc: {loginCount:1}//increment 增加 1
+                    $inc: {
+                        loginCount:1
+                    }//increment 增加 1
+
                 },
                 {
                     new: true,   //返回更新后的记录
@@ -82,6 +89,16 @@ module.exports = app => {
             var docs = await col.update({"_id":ObjectID(id.id)},
                 {$set:document}, //不能直接用document，否则会将整条记录覆盖为document，使用set操作符，只更新set的字段，没有该字段则创建。
                 {upsert:true}); // 没有则插入
+            return docs;
+        }
+
+        async findByOpenId(openid) {
+            // Connection URL
+            var db = await MongoClient.connect(app.config.dbStr);
+            console.log("连接数据库成功");
+            // Get the collection
+            var col = db.collection('user');
+            var docs = await col.find({"openid":openid}).toArray();
             return docs;
         }
     }

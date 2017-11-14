@@ -11,6 +11,7 @@ module.exports = app => {
     // 2. 根据openid判断是否第一次登录，是则创建user记录；
     // 3. 返回user记录。
     app.get('/api/v1/wxLogin', 'user.wxLogin');
+    app.post('/api/v1/listUser', 'user.listUser');
 
 
 
@@ -24,7 +25,7 @@ module.exports = app => {
      GET	/posts	posts	app.controllers.posts.index
      GET	/posts/new	new_post	app.controllers.posts.new
      GET	/posts/:id	post	app.controllers.posts.show
-     GET	/posts/:id/edit	edit_post	app.controllers.posts.edit
+     ;     GET	/posts/:id/edit	edit_post	app.controllers.posts.edit
      POST	/posts	posts	app.controllers.posts.create
      PUT	/posts/:id	post	app.controllers.posts.update
      DELETE	/posts/:id	post	app.controllers.posts.destroy
@@ -32,4 +33,5 @@ module.exports = app => {
     app.resources('user', '/api/v1/user', 'user');
     app.resources('course', '/api/v1/course', 'course');
     app.resources('class', '/api/v1/class', 'class');
-};
+    app.resources('teacher','/api/v1/teacher','teacher');
+}

@@ -4,14 +4,14 @@ var ObjectID = require('mongodb').ObjectID;
 
 
 module.exports = app => {
-    class CourseService extends app.Service {
+    class TeacherService extends app.Service {
 
         async findAll(){
             // Connection URL
             var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
             console.log("连接数据库成功");
             // Get the collection
-            var col = db.collection('course');
+            var col = db.collection('teacher');
 
 
             // Get first documents that match the query
@@ -24,7 +24,7 @@ module.exports = app => {
             var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
             console.log("连接数据库成功");
             // Get the collection
-            var col = db.collection('course');
+            var col = db.collection('teacher');
 
             console.log("where",id);
             // Get first documents that match the query
@@ -34,5 +34,5 @@ module.exports = app => {
             return docs;
         }
     }
-    return CourseService;
+    return TeacherService;
 };

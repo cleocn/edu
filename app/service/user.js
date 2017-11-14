@@ -27,15 +27,22 @@ module.exports = app => {
             // Get first the documents that match the query
             var where = {};
             where.openid = result.data.openid;
+            parm.firstLoginTime = new Date();
+            parm.lastLoginTime = new Date();
+
             var update = parm;
                 update.openid = result.data.openid;
                 update.session_key = result.data.session_key;
+                update.lastLoginTime = new Date();
             var rtn = await col.findAndModify(
                 {openid: where.openid},
                 [["openid", 1]],
                 {
                     $set: update,
-                    $inc: {loginCount:1}//increment 增加 1
+                    $inc: {
+                        loginCount:1
+                    }//increment 增加 1
+
                 },
                 {
                     new: true,   //返回更新后的记录

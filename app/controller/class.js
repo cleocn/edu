@@ -27,6 +27,13 @@ console.log("class.index");
       this.ctx.body = rtn;
     }
 
+    //支持多个参数同时索引  post {"courseId":100002,"classId": 100011,..}
+      async listClass() {
+          const { ctx, service } = this;
+          console.log("listClass",ctx.request.body);
+          var rtn =  await service.class.findById(ctx.request.body);
+          this.ctx.body = rtn;
+      }
 
   }
   return ClassService;

@@ -32,6 +32,7 @@ module.exports = app => {
       db.close;
       return docs;
     }
+
   }
   return CourseService;
 };

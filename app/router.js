@@ -13,6 +13,7 @@ module.exports = app => {
     app.get('/api/v1/wxLogin', 'user.wxLogin');
     app.post('/api/v1/listUser', 'user.listUser');
 
+    app.post('/api/v1/listClass', 'class.listClass');
 
 
 

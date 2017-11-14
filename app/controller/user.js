@@ -22,13 +22,21 @@ module.exports = app => {
             ctx.body = rtn;
         }
        // PUT: /user/_id  根据_id更新用户
-        async update() {
+        async update(){
             const { ctx, service } = this;
             //update(id,更新的值对)
             var rtn =  await service.user.updateById(ctx.params,ctx.query);
             this.ctx.body = rtn;
         }
 
+        async listUser() {
+            const { ctx, service } = this;
+            console.log(ctx.request.body.openId);
+            console.log("course_show",ctx.request.body);
+
+            var rtn =  await service.user.findByOpenId(ctx.request.body.openId);
+            this.ctx.body = rtn;
+        }
 
     }
     return UserController;

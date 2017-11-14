@@ -33,4 +33,5 @@ module.exports = app => {
     app.resources('user', '/api/v1/user', 'user');
     app.resources('course', '/api/v1/course', 'course');
     app.resources('class', '/api/v1/class', 'class');
+    app.resources('teacher','/api/v1/teacher','teacher');
 }

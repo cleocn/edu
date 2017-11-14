@@ -84,6 +84,16 @@ module.exports = app => {
                 {upsert:true}); // 没有则插入
             return docs;
         }
+
+        async findByOpenId(openid) {
+            // Connection URL
+            var db = await MongoClient.connect(app.config.dbStr);
+            console.log("连接数据库成功");
+            // Get the collection
+            var col = db.collection('user');
+            var docs = await col.find({"openid":openid}).toArray();
+            return docs;
+        }
     }
 
     return UserService;

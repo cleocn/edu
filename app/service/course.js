@@ -1,5 +1,6 @@
 var MongoClient = require('mongodb').MongoClient
     , assert = require('assert');
+var ObjectID = require('mongodb').ObjectID;
 
 
 module.exports = app => {
@@ -27,7 +28,7 @@ module.exports = app => {
 
             console.log("where",id);
             // Get first documents that match the query
-            var docs = await col.find(id).toArray();
+            var docs = await col.find({"_id":ObjectID(id.id)}).toArray();
             console.log("连接数据库成功",docs);
             db.close;
             return docs;

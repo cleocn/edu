@@ -14,6 +14,7 @@ module.exports = app => {
     app.post('/api/v1/listUser', 'user.listUser');
 
     app.post('/api/v1/listClass', 'class.listClass');
+    app.post('/api/v1/inClass', 'class.inClass');
 
 
 

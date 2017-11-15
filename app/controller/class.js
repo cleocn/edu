@@ -35,6 +35,13 @@ console.log("class.index");
           this.ctx.body = rtn;
       }
 
+      //报名参加课程
+      async inClass() {
+          const { ctx, service } = this;
+          console.log("listClass",ctx.request.body);
+          var rtn =  await service.class.checkClass(ctx.request.body);
+          this.ctx.body = rtn;
+      }
   }
   return ClassService;
 };

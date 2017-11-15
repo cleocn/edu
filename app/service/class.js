@@ -7,7 +7,7 @@ module.exports = app => {
 
     async findAll() {
       // Connection URL
-      const db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+      const db = await MongoClient.connect(app.config.dbStr);
       console.log('连接数据库成功class');
       // Get the collection
       const col = db.collection('class');
@@ -20,7 +20,7 @@ module.exports = app => {
     }
     async findById(id) {
       // Connection URL
-      const db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+      const db = await MongoClient.connect(app.config.dbStr);
       console.log('连接数据库成功');
       // Get the collection
       const col = db.collection('class');
@@ -37,7 +37,7 @@ module.exports = app => {
 
     async checkClass(params) {
       // Connection URL
-      const db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-dev');
+      const db = await MongoClient.connect(app.config.dbStr);
       console.log('连接数据库成功 inClass');
       const where = {};
       let status = false;

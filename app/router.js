@@ -16,6 +16,12 @@ module.exports = app => {
     app.post('/api/v1/listClass', 'class.listClass');
     app.post('/api/v1/inClass', 'class.inClass');
 
+    //咨询
+    app.post('/api/v1/listConsult', 'consult.listConsult');
+    app.post('/api/v1/addConsult', 'consult.addConsult');
+    app.post('/api/v1/listReplyConsult', 'consult.listReplyConsult');
+    app.post('/api/v1/addReplyConsult', 'consult.addReplyConsult');
+
 
 
     /*********************************************************************

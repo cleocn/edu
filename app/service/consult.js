@@ -25,7 +25,7 @@ module.exports = app => {
       const col = db.collection('consult');
       console.log('params', params);
       const docs = await col.insert(params);
-    //  console.log('连接数据库成功', docs);
+      //  console.log('连接数据库成功', docs);
       db.close;
       return docs;
     }
@@ -42,16 +42,16 @@ module.exports = app => {
         where.mainSeq = params.mainSeq;
       }
       // Get first documents that match the query
-        let result={};
+      const result = {};
       const replyConsult = await col.find(where).toArray();
       result.replyConsult = replyConsult;
 
-        where={} ;
-        where.seq=params.mainSeq;
-        col = db.collection('consult');
-        const consult = await col.find(where).toArray();
-        result.consult = consult;
-     //   console.log("result:",result);
+      where = {};
+      where.seq = params.mainSeq;
+      col = db.collection('consult');
+      const consult = await col.find(where).toArray();
+      result.consult = consult;
+      //   console.log("result:",result);
       db.close;
       return result;
     }
@@ -62,10 +62,14 @@ module.exports = app => {
       const db = await MongoClient.connect(app.config.dbStr);
       // Get the collection
       let col = db.collection('replyConsult');
-      console.log('replyConsult params', params);
+   //   console.log('replyConsult params', params);
       let docs = await col.insert(params);
     //  console.log('连接数据库成功 replyConsult insert:', docs);
-
+      // 如果新增失败则直接返回结果
+      if (docs.result.ok || docs.result.ok != 1) {
+        db.close;
+        return docs;
+      }
       const where = {};
       where.seq = params.mainSeq;
       col = db.collection('consult');

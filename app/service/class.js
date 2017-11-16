@@ -3,7 +3,7 @@ let MongoClient = require('mongodb').MongoClient,
 
 
 module.exports = app => {
-  class CourseService extends app.Service {
+  class ClassService extends app.Service {
 
     async findAll() {
       // Connection URL
@@ -105,6 +105,6 @@ module.exports = app => {
     }
 
   }
-  return CourseService;
+  return ClassService;
 
 };

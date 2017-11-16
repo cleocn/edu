@@ -24,8 +24,7 @@ module.exports = app => {
       console.log('连接数据库成功');
       // Get the collection
       const col = db.collection('class');
-
-      console.log('where', id);
+      console.log("where",id)
       // Get first documents that match the query
       const docs = await col.find(id).toArray();
       console.log('连接数据库成功', docs);
@@ -49,6 +48,7 @@ module.exports = app => {
       // Get first documents that match the query
       const docs = await col.find(where).toArray();
       console.log('连接数据库成功 result', docs);
+      console.log("params",params);
       if(docs.length >0){
       for (let i = 0; i < docs[0].enrPeople.length; i++) {
         if (docs[0].enrPeople[i].openId == params.openId) {
@@ -65,8 +65,8 @@ module.exports = app => {
         // 1.课程参加人数+1
         let where = {};
         let col = db.collection('course');
-        where.id = params.courseId;
-        let docs = await col.update(where, { $inc: { enrPeople: 1 } });
+        where.courseId = params.courseId;
+        let docs = await col.update(where, { $inc: { sumPeople: 1 } });
         console.log('docs 1', docs);
         // 2.将预约人员加入班级
         col = db.collection('class');

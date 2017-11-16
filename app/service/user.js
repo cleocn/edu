@@ -26,17 +26,17 @@ module.exports = app => {
             var col = db.collection('user');
             // Get first the documents that match the query
             var where = {};
-            where.openid = result.data.openid;
+            where.openId = result.data.openid;
             parm.firstLoginTime = new Date();
             parm.lastLoginTime = new Date();
 
             var update = parm;
-                update.openid = result.data.openid;
+                update.openId = result.data.openid;
                 update.session_key = result.data.session_key;
                 update.lastLoginTime = new Date();
             var rtn = await col.findAndModify(
-                {openid: where.openid},
-                [["openid", 1]],
+                {openId: where.openId},
+                [["openId", 1]],
                 {
                     $set: update,
                     $inc: {
@@ -98,7 +98,7 @@ module.exports = app => {
             console.log("连接数据库成功");
             // Get the collection
             var col = db.collection('user');
-            var docs = await col.find({"openid":openid}).toArray();
+            var docs = await col.find({"openId":openid}).toArray();
             return docs;
         }
     }

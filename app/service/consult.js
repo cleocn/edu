@@ -23,6 +23,8 @@ module.exports = app => {
       console.log('连接数据库成功');
       // Get the collection
       const col = db.collection('consult');
+      params.good = 0;
+      params.replyCount=0;
       console.log('params', params);
       const docs = await col.insert(params);
       //  console.log('连接数据库成功', docs);

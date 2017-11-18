@@ -8,7 +8,7 @@ module.exports = app => {
 
         async findAll(){
             // Connection URL
-            var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+            const db = await MongoClient.connect(app.config.dbStr);
             console.log("连接数据库成功");
             // Get the collection
             var col = db.collection('course');
@@ -21,7 +21,7 @@ module.exports = app => {
         }
         async findById(id){
             // Connection URL
-            var db = await MongoClient.connect('mongodb://isoft-info.com:27017/edu-prd');
+            const db = await MongoClient.connect(app.config.dbStr);
             console.log("连接数据库成功");
             // Get the collection
             var col = db.collection('course');
